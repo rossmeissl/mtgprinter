@@ -59,7 +59,7 @@ BOXES.times do
   boxes << box
 end
 
-pdf = Prawn::Document.new(top_margin: 0.25.in, right_margin: 0.5.in, bottom_margin: 0.25.in, left_margin: 0.5.in)
+pdf = Prawn::Document.new(top_margin: 0.25.in, right_margin: 0.5.in, bottom_margin: 0.25.in, left_margin: 0.5.in, skip_page_creation: true)
 pdf.define_grid(columns: 3, rows: 3)
 
 boxes.each_with_index do |box, i|
@@ -81,6 +81,10 @@ boxes.each_with_index do |box, i|
           `curl "http://mtgimage.com/set/3ed/#{card.image}.jpg" > cards/#{filename}`
         end
         pdf.image File.join('cards', filename), fit: [2.5.in, 3.5.in]
+        pdf.fill_color 'ffffff'
+        pdf.draw_text "#{i}/#{j}/#{k}/#{card.rarity.to_s[0].upcase}", at: [10, 10], style: :bold
+        pdf.fill_color '000000'
+        pdf.draw_text "#{i}/#{j}/#{k}/#{card.rarity.to_s[0].upcase}", at: [9.5, 10.5], style: :bold
       end
       x += 1
       if x == 3
