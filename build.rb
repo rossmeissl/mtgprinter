@@ -38,6 +38,7 @@ end
 class Booster < Array
 end
 
+# Get edition JSON here: https://github.com/lsmoura/mtgjson/tree/master/json
 json = JSON.parse(File.read '3ED.json')
 cards = RARITIES.inject({}) { |memo, rarity| memo[rarity] = []; memo }
 json['cards'].each do |card|
